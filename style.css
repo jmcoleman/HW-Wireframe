@@ -1,6 +1,8 @@
+/*
 .debug {
     outline: orange 2px dashed;
 }
+*/
 
 /* ==================================================================
 Body
@@ -51,31 +53,42 @@ header, nav, section, aside, footer {
     background: #ebebeb;
 }
 
-header, nav, section, footer {
-    padding: 20px 10px;
+header {
+    padding: 30px 10px;
     margin: 10px auto;
+}
+
+nav, footer {
+    padding: 30px 10px;
+    margin: 10px auto;
+}
+
+section {
+    width: 495px;
+
+    padding: 30px 10px 10px 10px;
+    margin: 10px 0px;
+
+/*    overflow: auto;
+    height: 1%; */
 }
 
 article {
     color: #ebebeb;
     background: #777;
 
-    padding: 10px;
-    margin: 10px;
+    padding: 20px 10px 10px 10px;
+    margin: 30px 0px 10px 0px;
 }
 
 aside {
 
-    padding: 20px 200px;
-    margin: 10px auto;
-    /*width: 100%;*/
-    height: 100%;
-}
+    padding: 30px 0px 10px  0px;
+    margin: 10px 0px;
 
-section {
-    width: 495px;
+/*    overflow: auto;
+    height: 1%; */
 }
-
 
 h1, h2, h3, p {
     color: #777;
@@ -84,40 +97,150 @@ h1, h2, h3, p {
     font-size: 18px;
 }
 
+h1, h2, h3 {
+    font-weight: bold;
+}
+
 p {
 
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.inline-list  {
+.inline-item  {
     display: inline-block;
-    padding: 5px;
+    padding: 0px 0px 0px 0px;
 }
 
-.container-item-margin {
-    margin: 10px 20px;
-}
-
-.left-content {
-    float: left;
-}
-
-.right-content {
-    float: right;
-    width: auto;
-    height: 100%;
-}
-
-.clearfix:after { 
-    content: ""; 
-    display: block; 
-    clear: both;
-
-    visibility: hidden; 
-    height: 0; 
+.container-row-margin {
+    margin: 10px 10px 10px 5px;
 }
 
 .nodisplay {
     display: none;
 }
+
+#article-sub-header {
+    padding: 10px 0px 10px 0px;
+    margin-top: 20px;
+}
+
+/****** OPTION 1: using FLOATS ******/
+
+/* =======================================
+    FLOAT logic -- the aside does not 
+    fill the area with this approach
+    unless use width% which violates
+    the static width length requirement
+    but better matches the screen shot
+
+    Issues:
+    1. scrollbars when shrink screen (fixed)
+    2. when shrink screen section and aside areas collapse 
+    (fixed with specific height in container)
+========================================== */
+
+.col-container {
+    height: 260px;
+    overflow: hidden; 
+}
+
+section {
+    position: relative;
+}
+
+article {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+
+.left-content {
+    float: left;
+    width: 60%;
+    height: 100%;
+}
+
+.right-content {
+    float: right;
+    width: 37.5%;
+    height: 100%;
+}
+
+.group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.group {
+    zoom: 1;            
+}
+
+footer {
+    margin-top: 20px;
+}
+
+
+/****** OPTION 2: using FLEXBOX ******/
+
+/* =======================================
+    Flex Box
+    alot less code 
+==========================================*/
+/*
+#div-wrapper {
+    display: flex;
+}
+
+.col article {
+    position: relative;
+    margin-top: 20px;
+}
+
+#div-wrapper aside:last-child {
+    flex-grow: 1;
+    margin-left: 25px;
+}
+
+.left-content {
+    width: 60%;
+}
+*/
+/******  BELOW ARE NOT VIABLE OPTIONS ******/
+
+/* ================================================================
+    TABLE layout - adheres to 495px width
+    for section but columns from picture
+    don't seem to match
+
+    very static - not responsive
+    better for tabular data, not layout
+   
+    Issues:
+    1. to get the margins, used border-spacing 
+    which also spaces the other edges which is not desireable
+===================================================================*/
+/*
+.col-container {
+    width: 100%;
+    display: table;
+    border-spacing: 20px; 
+}
+
+.col article {
+    position: static;
+    margin-top: 20px;
+}
+
+.col {
+    display: table-cell;
+}
+*/
+/* =======================================
+    Absolute logic - takes the section 
+    and aside out of the flow so not 
+    viable to see footer and adjust 
+    for content
+==========================================*/
